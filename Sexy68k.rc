@@ -1,0 +1,231 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDM_MAINMENU MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Save State",                  ID_FILE_SAVESTATE
+        MENUITEM "Load State",                  ID_FILE_LOADSTATE
+        POPUP "Select State"
+        BEGIN
+            MENUITEM "0",                           ID_SELECTSTATE_0
+            MENUITEM "1",                           ID_SELECTSTATE_1
+            MENUITEM "2",                           ID_SELECTSTATE_2
+            MENUITEM "3",                           ID_SELECTSTATE_3
+            MENUITEM "4",                           ID_SELECTSTATE_4
+            MENUITEM "5",                           ID_SELECTSTATE_5
+            MENUITEM "6",                           ID_SELECTSTATE_6
+            MENUITEM "7",                           ID_SELECTSTATE_7
+            MENUITEM "8",                           ID_SELECTSTATE_8
+            MENUITEM "9",                           ID_SELECTSTATE_9
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                        ID_FILE_EXIT
+    END
+    POPUP "Emulation"
+    BEGIN
+        MENUITEM "Reset",                       ID_EMULATION_RESET
+        MENUITEM "Power Off",                   ID_EMULATION_POWEROFF
+    END
+    POPUP "Disk Drive 1"
+    BEGIN
+        MENUITEM "Insert Disk",                 ID_DISKDRIVE1_INSERTDISK
+        MENUITEM "Eject Disk",                  ID_DISKDRIVE1_EJECTDISK
+    END
+    POPUP "Disk Drive 2"
+    BEGIN
+        MENUITEM "Insert Disk",                 ID_DISKDRIVE2_INSERTDISK
+        MENUITEM "Eject Disk",                  ID_DISKDRIVE2_EJECTDISK
+    END
+    POPUP "Config"
+    BEGIN
+        MENUITEM "Video",                       ID_CONFIG_VID
+        MENUITEM "Input",                       ID_CONFIG_INPUT
+        MENUITEM "Paths",                       ID_CONFIG_PATHS
+        MENUITEM "Audio",                       ID_CONFIG_AUDIO
+    END
+    POPUP "Tools"
+    BEGIN
+        MENUITEM "Hex Editor",                  ID_TOOLS_HEXEDITOR
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "About",                       ID_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_APPICO              ICON                    "images\\x68k.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_APRIL               BITMAP                  "images\\April.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUT DIALOGEX 0, 0, 274, 202
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Sexy68k..."
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Thanks Cutie!",IDOK,210,180,54,14
+    CONTROL         103,IDC_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE,6,6,136,187,WS_EX_CLIENTEDGE
+    LTEXT           "Sexy68k: A Sharp X680x0 emulator",IDC_STATIC,150,6,114,8
+    LTEXT           "Copyright (C) 2012 Silky Softworks",IDC_STATIC,150,18,112,8
+    LISTBOX         IDC_LIST1,150,30,114,144,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PATHSCFG DIALOGEX 0, 0, 256, 143
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configure Paths"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,138,120,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,198,120,50,14
+    EDITTEXT        IDC_EDIT1,54,6,162,14,ES_AUTOHSCROLL
+    LTEXT           "BIOS:",IDC_STATIC,28,18,20,8
+    EDITTEXT        IDC_EDIT2,54,24,162,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON1,222,6,24,14
+    PUSHBUTTON      "...",IDC_BUTTON2,222,24,24,14
+    LTEXT           "Disk Images:",IDC_STATIC,6,48,42,8
+    PUSHBUTTON      "...",IDC_BUTTON3,222,42,24,14
+    EDITTEXT        IDC_EDIT3,54,42,162,14,ES_AUTOHSCROLL
+    LTEXT           "Cheats:",IDC_STATIC,22,66,26,8
+    EDITTEXT        IDC_EDIT4,54,60,162,14,ES_AUTOHSCROLL
+    LTEXT           "Save States:",IDC_STATIC,6,84,42,8
+    EDITTEXT        IDC_EDIT5,54,78,162,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON4,222,60,24,14
+    PUSHBUTTON      "...",IDC_BUTTON5,222,78,24,14
+    LTEXT           "Save Games:",IDC_STATIC,6,102,43,8
+    EDITTEXT        IDC_EDIT6,54,96,162,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON6,222,96,24,14
+END
+
+IDD_INPUTCFG DIALOGEX 0, 0, 316, 185
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configure Inputs"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,205,164,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,259,164,50,14
+    LTEXT           "Joystick:",IDC_STATIC,6,9,29,8
+    COMBOBOX        IDC_COMBO1,37,7,125,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Configure",IDC_BUTTON1,168,6,50,14
+    CONTROL         "Ignore analog sticks ",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,228,6,78,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 267
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 195
+    END
+
+    IDD_PATHSCFG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 136
+    END
+
+    IDD_INPUTCFG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 178
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
