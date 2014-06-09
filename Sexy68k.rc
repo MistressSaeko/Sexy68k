@@ -60,17 +60,22 @@ BEGIN
         MENUITEM "Load State",                  ID_FILE_LOADSTATE
         POPUP "Select State"
         BEGIN
-            MENUITEM "0",                           ID_SELECTSTATE_0
-            MENUITEM "1",                           ID_SELECTSTATE_1
-            MENUITEM "2",                           ID_SELECTSTATE_2
-            MENUITEM "3",                           ID_SELECTSTATE_3
-            MENUITEM "4",                           ID_SELECTSTATE_4
-            MENUITEM "5",                           ID_SELECTSTATE_5
-            MENUITEM "6",                           ID_SELECTSTATE_6
-            MENUITEM "7",                           ID_SELECTSTATE_7
-            MENUITEM "8",                           ID_SELECTSTATE_8
-            MENUITEM "9",                           ID_SELECTSTATE_9
+            MENUITEM "1",                           ID_SELECTSTATE_0
+            MENUITEM "2",                           ID_SELECTSTATE_1
+            MENUITEM "3",                           ID_SELECTSTATE_2
+            MENUITEM "4",                           ID_SELECTSTATE_3
+            MENUITEM "5",                           ID_SELECTSTATE_4
+            MENUITEM "6",                           ID_SELECTSTATE_5
+            MENUITEM "7",                           ID_SELECTSTATE_6
+            MENUITEM "8",                           ID_SELECTSTATE_7
+            MENUITEM "9",                           ID_SELECTSTATE_8
         END
+        MENUITEM SEPARATOR
+        MENUITEM "Record Input File",           ID_FILE_RECORDINPUTFILE
+        MENUITEM "Replay Input File",           ID_FILE_REPLAYINPUTFILE
+        MENUITEM "Record AVI",                  ID_FILE_RECORDAVI
+        MENUITEM SEPARATOR
+        MENUITEM "Save Screenshot",             ID_FILE_SAVESCREENSHOT
         MENUITEM SEPARATOR
         MENUITEM "Exit",                        ID_FILE_EXIT
     END
@@ -89,12 +94,41 @@ BEGIN
         MENUITEM "Insert Disk",                 ID_DISKDRIVE2_INSERTDISK
         MENUITEM "Eject Disk",                  ID_DISKDRIVE2_EJECTDISK
     END
+    POPUP "CD Drive"
+    BEGIN
+        MENUITEM "Insert CD",                   ID_CDDRIVE_LOAD
+    END
     POPUP "Config"
     BEGIN
-        MENUITEM "Video",                       ID_CONFIG_VID
-        MENUITEM "Input",                       ID_CONFIG_INPUT
+        POPUP "Video"
+        BEGIN
+            POPUP "Scale"
+            BEGIN
+                MENUITEM "1x",                          ID_SCALE_1X
+                MENUITEM "2x",                          ID_SCALE_2X
+                MENUITEM "3x",                          ID_SCALE_3
+            END
+            MENUITEM SEPARATOR
+            MENUITEM "Video Options",               ID_VIDEO_VIDEOOPTIONS
+        END
+        POPUP "Audio"
+        BEGIN
+            POPUP "Rate"
+            BEGIN
+                MENUITEM "22,050",                      ID_RATE_22
+                MENUITEM "44,1000",                     ID_RATE_41
+                MENUITEM "48,000",                      ID_RATE_48
+            END
+        END
+        POPUP "Input"
+        BEGIN
+            MENUITEM "Port 1",                      ID_INPUT_PORT1
+            MENUITEM "Port 2",                      ID_INPUT_PORT2
+            MENUITEM SEPARATOR
+            MENUITEM "Input Options",               ID_INPUT_INPUTOPTIONS
+            MENUITEM "Capture Mouse",               ID_INPUT_CAPTUREMOUSE
+        END
         MENUITEM "Paths",                       ID_CONFIG_PATHS
-        MENUITEM "Audio",                       ID_CONFIG_AUDIO
     END
     POPUP "Tools"
     BEGIN
@@ -136,34 +170,40 @@ BEGIN
     DEFPUSHBUTTON   "Thanks Cutie!",IDOK,210,180,54,14
     CONTROL         103,IDC_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE,6,6,136,187,WS_EX_CLIENTEDGE
     LTEXT           "Sexy68k: A Sharp X680x0 emulator",IDC_STATIC,150,6,114,8
-    LTEXT           "Copyright (C) 2012 Silky Softworks",IDC_STATIC,150,18,112,8
+    LTEXT           "Copyright (C) 2012 Mistress Saeko",IDC_STATIC,150,18,112,8
     LISTBOX         IDC_LIST1,150,30,114,144,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_PATHSCFG DIALOGEX 0, 0, 256, 143
+IDD_PATHSCFG DIALOGEX 0, 0, 251, 172
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Configure Paths"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,138,120,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,198,120,50,14
+    DEFPUSHBUTTON   "OK",IDOK,139,151,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,194,151,50,14
     EDITTEXT        IDC_EDIT1,54,6,162,14,ES_AUTOHSCROLL
     LTEXT           "BIOS:",IDC_STATIC,28,18,20,8
     EDITTEXT        IDC_EDIT2,54,24,162,14,ES_AUTOHSCROLL
-    PUSHBUTTON      "...",IDC_BUTTON1,222,6,24,14
-    PUSHBUTTON      "...",IDC_BUTTON2,222,24,24,14
-    LTEXT           "Disk Images:",IDC_STATIC,6,48,42,8
-    PUSHBUTTON      "...",IDC_BUTTON3,222,42,24,14
+    PUSHBUTTON      "...",IDC_BUTTON1,220,6,24,14
+    PUSHBUTTON      "...",IDC_BUTTON2,220,24,24,14
+    LTEXT           "Disk Images:",IDC_STATIC,6,45,42,8
+    PUSHBUTTON      "...",IDC_BUTTON3,220,42,24,14
     EDITTEXT        IDC_EDIT3,54,42,162,14,ES_AUTOHSCROLL
-    LTEXT           "Cheats:",IDC_STATIC,22,66,26,8
+    LTEXT           "Cheats:",IDC_STATIC,22,63,26,8
     EDITTEXT        IDC_EDIT4,54,60,162,14,ES_AUTOHSCROLL
-    LTEXT           "Save States:",IDC_STATIC,6,84,42,8
+    LTEXT           "Save States:",IDC_STATIC,6,81,42,8
     EDITTEXT        IDC_EDIT5,54,78,162,14,ES_AUTOHSCROLL
-    PUSHBUTTON      "...",IDC_BUTTON4,222,60,24,14
-    PUSHBUTTON      "...",IDC_BUTTON5,222,78,24,14
-    LTEXT           "Save Games:",IDC_STATIC,6,102,43,8
+    PUSHBUTTON      "...",IDC_BUTTON4,220,60,24,14
+    PUSHBUTTON      "...",IDC_BUTTON5,220,78,24,14
+    LTEXT           "Save Games:",IDC_STATIC,6,99,43,8
     EDITTEXT        IDC_EDIT6,54,96,162,14,ES_AUTOHSCROLL
-    PUSHBUTTON      "...",IDC_BUTTON6,222,96,24,14
+    PUSHBUTTON      "...",IDC_BUTTON6,220,96,24,14
+    EDITTEXT        IDC_EDIT7,54,113,162,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON7,220,113,24,14
+    LTEXT           "Movies:",IDC_STATIC,23,116,26,8
+    EDITTEXT        IDC_EDIT8,54,131,162,14,ES_AUTOHSCROLL
+    LTEXT           "AVIs:",IDC_STATIC,31,134,18,8
+    PUSHBUTTON      "...",IDC_BUTTON8,220,131,24,14
 END
 
 IDD_INPUTCFG DIALOGEX 0, 0, 316, 185
@@ -177,6 +217,17 @@ BEGIN
     COMBOBOX        IDC_COMBO1,37,7,125,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Configure",IDC_BUTTON1,168,6,50,14
     CONTROL         "Ignore analog sticks ",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,228,6,78,12
+END
+
+IDD_VIDCFG DIALOGEX 0, 0, 316, 185
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Video Conifguration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,205,164,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,259,164,50,14
+    LTEXT           "Renderer:",IDC_STATIC,7,9,34,8
+    COMBOBOX        IDC_COMBO1,46,7,137,49,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
 
@@ -199,9 +250,9 @@ BEGIN
     IDD_PATHSCFG, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 249
+        RIGHTMARGIN, 244
         TOPMARGIN, 7
-        BOTTOMMARGIN, 136
+        BOTTOMMARGIN, 165
     END
 
     IDD_INPUTCFG, DIALOG
@@ -211,8 +262,55 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 178
     END
+
+    IDD_VIDCFG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 178
+    END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Mistress Saeko"
+            VALUE "FileDescription", "Sharp X680x0 emulator"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "Sexy68k"
+            VALUE "LegalCopyright", "Copyright (C) 2014 Mistress Saeko"
+            VALUE "OriginalFilename", "Sexy68k.exe"
+            VALUE "ProductName", "Sexy68k"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
 
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////

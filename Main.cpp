@@ -1,3 +1,6 @@
+// Strip out unnecessary crap
+#define WIN32_LEAN_AND_MEAN
+
 // Main includes.
 #include <windows.h>
 #include <commdlg.h>
@@ -119,11 +122,11 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch(LOWORD(wParam))
         {
             case ID_DISKDRIVE1_INSERTDISK:
-            DoROMLoad(hwnd);
+            DoROMLoad1(hwnd);
             break;
 
             case ID_DISKDRIVE2_INSERTDISK:
-            DoROMLoad(hwnd);
+            DoROMLoad2(hwnd);
             break;
 
 			case ID_HELP_ABOUT:
@@ -158,9 +161,27 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
-			case ID_CONFIG_INPUT:
+			case ID_INPUT_INPUTOPTIONS:
 			{
 			int ret = DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUTCFG), hwnd, InputCfg);
+			if(ret == IDOK)
+            {
+               EndDialog(hwnd, IDOK);
+            }
+            else if(ret == IDCANCEL)
+            {
+               EndDialog(hwnd, IDCANCEL);
+            }
+            else if(ret == -1)
+            {
+                MessageBox(hwnd, "Cannot display dialog.", "Sexy68k", MB_OK | MB_ICONINFORMATION);
+            }
+			}
+			break;
+
+			case ID_VIDEO_VIDEOOPTIONS:
+			{
+			int ret = DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_VIDCFG), hwnd, VideoCfg);
 			if(ret == IDOK)
             {
                EndDialog(hwnd, IDOK);
