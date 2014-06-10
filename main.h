@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <d3d9.h>
 
 #define IDC_STATUS 8675309
 

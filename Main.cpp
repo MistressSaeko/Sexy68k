@@ -5,19 +5,65 @@
 #include <windows.h>
 #include <commdlg.h>
 #include <commctrl.h>
+#include <d3d9.h>
 
 // Local includes.
 #include "resource.h"
 #include "dialogs.h"
 #include "main.h"
 
+#pragma comment (lib, "d3d9.lib")
+
 void WINAPI InitCommonControlsEx(void);  // Have to do this. Or we don't get to use controls.
 
-// Standard global variables. Limit the usage of these or experience a huge overhead.
+// Global variables. Limit the usage of these or experience a huge overhead.
 char szClassName[ ] = "Sexy68k";
 char ROM_Path[MAX_PATH];
 char ini_path[MAX_PATH];
+LPDIRECT3D9 d3d;
+LPDIRECT3DDEVICE9 d3ddev;
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+// Function prototypes.
+void init3d(HWND hwnd);
+void frame(void);
+void die(void);
+
+// Create the surface display for the game.
+void init3d(HWND hwnd)
+{
+	d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+	D3DPRESENT_PARAMETERS d3dpp;
+
+	ZeroMemory(&d3dpp, sizeof(d3dpp));
+	d3dpp.Windowed      = true;
+	d3dpp.SwapEffect    = D3DSWAPEFFECT_DISCARD;
+	d3dpp.hDeviceWindow = hwnd;
+
+	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3ddev);
+}
+
+// Here's where the action takes place.
+void frame(void)
+{
+	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(128, 128, 255), 1.0f, 0);
+
+	d3ddev->BeginScene();
+// Frame rendering goes in this space
+	d3ddev->EndScene();
+
+	d3ddev->Present(NULL, NULL, NULL, NULL);
+}
+
+// Perform cleanup and release.
+void die(void)
+{
+	d3ddev->Release();
+	d3d->Release();
+}
+
+
 
 // Save emulator settings using an ini file.
 //int save_settings(HINSTANCE hInst)
@@ -36,8 +82,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 //
 //	WritePrivateProfileString
 //}
-
-
 
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow)
 {
@@ -89,6 +133,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpszArgumen
    
 	//Pretty standard stuff here.
     ShowWindow (hwnd, nCmdShow);
+	init3d(hwnd);
 	UpdateWindow(hwnd);
 
   // Main message loop.
@@ -96,7 +141,9 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpszArgumen
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
+		frame();
     }
+	die();
 
     return msg.wParam;
 }
@@ -125,7 +172,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
                 GetModuleHandle(NULL),
                 NULL
                 );
-           
+
            SendMessage(hStatus, SB_SETPARTS, sizeof(statwidths)/sizeof(int), (LPARAM)statwidths);
            SendMessage(hStatus, SB_SETTEXT, 0, (LPARAM)"Disk drive 1 is empty.");
 		   SendMessage(hStatus, SB_SETTEXT, 1, (LPARAM)"Disk drive 2 is empty.");
@@ -133,8 +180,15 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
         case WM_SIZE: // Let Windows size them automagically.
-        {	
+        {
+			HWND hStatus;
+			RECT rcStatus;
+			int iStatusHeight;
+
 			SendMessage(GetDlgItem(hwnd, IDC_STATUS), WM_SIZE, 0, 0);
+
+			GetWindowRect(hStatus, &rcStatus);
+			iStatusHeight = rcStatus.bottom - rcStatus.top;
         }
         break;
 
@@ -219,7 +273,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case ID_FILE_EXIT:
 			{
-				DestroyWindow(hwnd);
+				PostMessage(hwnd, WM_CLOSE, 0, 0);
 			}
 			break;		
         }

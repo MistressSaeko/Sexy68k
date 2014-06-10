@@ -1,6 +1,8 @@
+#define STRICT
 #include <windows.h>
 #include <vfw.h>
-#include "avi_utils.h"
+#include "avi-utils.h"
+
 
 
 // First, we'll define the WAV file format.
