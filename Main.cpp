@@ -1,12 +1,12 @@
 // Strip out unnecessary crap
 #define WIN32_LEAN_AND_MEAN
 
-// Main includes.
+// Global includes.
 #include <windows.h>
 #include <commdlg.h>
 #include <commctrl.h>
 
-// Secondary includes.
+// Local includes.
 #include "resource.h"
 #include "dialogs.h"
 #include "main.h"
@@ -16,7 +16,27 @@ void WINAPI InitCommonControlsEx(void);  // Have to do this. Or we don't get to 
 // Standard global variables. Limit the usage of these or experience a huge overhead.
 char szClassName[ ] = "Sexy68k";
 char ROM_Path[MAX_PATH];
+char ini_path[MAX_PATH];
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+// Save emulator settings using an ini file.
+//int save_settings(HINSTANCE hInst)
+//{
+//	{
+//	char *p;
+//	GetModuleFileName(hInst, ini_path, sizeof(ini_path));
+//	p = strrchr(ini_path, '\\');
+//	if(NULL == p)
+//	{
+//		p = (ini_path - 1);
+//	}
+//
+//	strcpy((p + 1), "sexy68k.ini");
+//	}
+//
+//	WritePrivateProfileString
+//}
+
 
 
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow)
@@ -109,7 +129,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
            SendMessage(hStatus, SB_SETPARTS, sizeof(statwidths)/sizeof(int), (LPARAM)statwidths);
            SendMessage(hStatus, SB_SETTEXT, 0, (LPARAM)"Disk drive 1 is empty.");
 		   SendMessage(hStatus, SB_SETTEXT, 1, (LPARAM)"Disk drive 2 is empty.");
-        }
+		}
         break;
 
         case WM_SIZE: // Let Windows size them automagically.
@@ -133,7 +153,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 			int ret = DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUT), hwnd, AboutDlg);
 			if(ret == IDOK)
-            {
+            {	
                EndDialog(hwnd, IDOK);
             }
             else if(ret == -1)
