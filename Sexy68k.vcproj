@@ -183,6 +183,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\reiko.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\valna.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\yuko.cpp"
 				>
 			</File>
@@ -201,7 +209,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\reiko.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\valna.h"
 				>
 			</File>
 			<File
